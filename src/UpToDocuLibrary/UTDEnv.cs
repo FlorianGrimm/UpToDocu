@@ -4,6 +4,7 @@ namespace UpToDocu {
     public class UTDEnv : UTDObject {
         public UTDEnv(
                 string name = "",
+                UTDObject? kind = default,
                 object? value = null,
                 [CallerMemberName] string callerMemberName = "",
                 [CallerFilePath] string callerFilePath = "",
@@ -11,6 +12,7 @@ namespace UpToDocu {
                 params UTDObject[] props
             ) : base(
                 name: name,
+                kind:kind,
                 value: value,
                 callerMemberName: callerMemberName,
                 callerFilePath: callerFilePath,

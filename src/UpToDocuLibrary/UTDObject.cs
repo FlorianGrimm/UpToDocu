@@ -7,14 +7,16 @@ namespace UpToDocu {
     public class UTDObject : IEnumerable<UTDObject> {
         public UTDObject(
             string name = "",
-            object? value = null,
+            UTDObject? kind = default,
+            object? value = default,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0,
             params UTDObject[] props
             ) {
             this.Props = new System.Collections.Generic.List<UTDObject>();
-            Name = name;
+            this.Name = name;
+            this.Kind = kind;
             this.Value = value;
             this.CallerMemberName = callerMemberName;
             this.CallerFilePath = callerFilePath;
@@ -26,10 +28,25 @@ namespace UpToDocu {
 
         public List<UTDObject> Props { get; }
         public string Name { get; set; }
+        public UTDObject? Kind { get; set; }
         public object? Value { get; set; }
         public string CallerMemberName { get; set; }
         public string CallerFilePath { get; set; }
         public int CallerLineNumber { get; set; }
+
+
+        public void AddRange(IEnumerable<UTDObject> props) {
+            foreach (var prop in props) {
+                this.Add(prop);
+            }
+        }
+
+        public void Add(UTDObject prop) {
+            if (this.Props.Contains(prop)) {
+            } else {
+                this.Props.Add(prop);
+            }
+        }
 
         public UTDEnumerator<UTDObject> GetEnumerator() => new UTDEnumerator<UTDObject>(this.Props);
 
@@ -47,10 +64,11 @@ namespace UpToDocu {
             that.Props.Add(child);
             return child;
         }
+
         /*
-          public static Fraction operator +(Fraction a, Fraction b)
-        => new Fraction(a.num * b.den + b.num * a.den, a.den * b.den);
-         */
+ public static Fraction operator +(Fraction a, Fraction b)
+=> new Fraction(a.num * b.den + b.num * a.den, a.den * b.den);
+*/
     }
 
     public class UTDEnumerator<T> : IEnumerator<T> where T : UTDObject {
