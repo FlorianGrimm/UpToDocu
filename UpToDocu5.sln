@@ -5,21 +5,25 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8A38BDCA-BD5A-4068-8FD7-1F99C5B648D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpToDocuLibrary", "src\UpToDocuLibrary\UpToDocuLibrary5.csproj", "{B334BAD5-5313-4654-A080-030DEF719C46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpToDocuLibrary5", "src\UpToDocuLibrary\UpToDocuLibrary5.csproj", "{B334BAD5-5313-4654-A080-030DEF719C46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpToDocuCli", "src\UpToDocuCli\UpToDocuCli5.csproj", "{68067309-B153-4E20-9A93-1D71421D0980}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpToDocuCli5", "src\UpToDocuCli\UpToDocuCli5.csproj", "{68067309-B153-4E20-9A93-1D71421D0980}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A1740C2C-F32F-4852-B24E-1FF6DAC87E04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpToDocuTest", "test\UpToDocuTest\UpToDocuTest5.csproj", "{12198D73-049D-41D9-AC4E-FA60CBD43D4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpToDocuTest5", "test\UpToDocuTest\UpToDocuTest5.csproj", "{12198D73-049D-41D9-AC4E-FA60CBD43D4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1985387E-2A6E-49B8-A1A3-065AD38D9BEB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpToDocuVisualization", "UpToDocuVisualization\UpToDocuVisualization.csproj", "{0462DA9A-E9BF-4FC0-8A16-9C9D775AB4E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B334BAD5-5313-4654-A080-030DEF719C46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -34,10 +38,21 @@ Global
 		{12198D73-049D-41D9-AC4E-FA60CBD43D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12198D73-049D-41D9-AC4E-FA60CBD43D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12198D73-049D-41D9-AC4E-FA60CBD43D4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0462DA9A-E9BF-4FC0-8A16-9C9D775AB4E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0462DA9A-E9BF-4FC0-8A16-9C9D775AB4E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0462DA9A-E9BF-4FC0-8A16-9C9D775AB4E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0462DA9A-E9BF-4FC0-8A16-9C9D775AB4E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B334BAD5-5313-4654-A080-030DEF719C46} = {8A38BDCA-BD5A-4068-8FD7-1F99C5B648D4}
 		{68067309-B153-4E20-9A93-1D71421D0980} = {8A38BDCA-BD5A-4068-8FD7-1F99C5B648D4}
 		{12198D73-049D-41D9-AC4E-FA60CBD43D4A} = {A1740C2C-F32F-4852-B24E-1FF6DAC87E04}
+		{0462DA9A-E9BF-4FC0-8A16-9C9D775AB4E3} = {8A38BDCA-BD5A-4068-8FD7-1F99C5B648D4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C79B118-7431-44D7-B911-CA5013DF5AAF}
 	EndGlobalSection
 EndGlobal

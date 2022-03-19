@@ -26,12 +26,14 @@ namespace UpToDocu {
             this.PropsByCallerMemberName = new Dictionary<string, UTDObject>();
         }
 
+        /*
         public UTDObject Register(
             UTDObject value
             ) {
             this.Props.Add(value);
             return value;
         }
+        */
 
         public UTDObject Define(
             Func<UTDObject> fnValue,
@@ -53,6 +55,14 @@ namespace UpToDocu {
                     reference.Props.Clear();
                 }
                 return value;
+            }
+        }
+
+        public void Postpare() {
+            foreach (var kv in this.PropsByCallerMemberName) {
+                if (string.IsNullOrEmpty(kv.Value.Name)) {
+                    kv.Value.Name = kv.Key;
+                }
             }
         }
 

@@ -1,5 +1,4 @@
-﻿
-using UpToDocu;
+﻿using UpToDocu;
 namespace Poc.Consideration {
     public class Step1 : UTDSpecification {
         public Step1() : base() {
