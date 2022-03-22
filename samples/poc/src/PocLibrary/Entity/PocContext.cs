@@ -20,7 +20,11 @@ namespace Poc.Entity {
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<TodoEntity>(
                 todoEntity => {
-                    todoEntity.Property(e => e.Title);
+                    todoEntity.Property(e => e.Id).IsRequired();
+                    todoEntity.Property(e => e.Title).HasMaxLength(255);
+                    todoEntity.Property(e => e.Done);
+                    todoEntity.Property(e => e.CreatedAt).IsRequired();
+                    todoEntity.Property(e => e.ModifiedAt).IsRequired();
                 }
                 );
             base.OnModelCreating(modelBuilder);

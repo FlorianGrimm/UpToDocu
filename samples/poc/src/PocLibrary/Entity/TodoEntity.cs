@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Poc.Entity {
     public class TodoEntity {
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public bool Done { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
