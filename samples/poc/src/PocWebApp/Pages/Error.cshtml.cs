@@ -2,11 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PocWebApp.Pages {
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -16,10 +12,11 @@ namespace PocWebApp.Pages {
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-        private readonly ILogger<ErrorModel> _logger;
+        private readonly ILogger<ErrorModel> _Logger;
 
         public ErrorModel(ILogger<ErrorModel> logger) {
-            _logger = logger;
+            this._Logger = logger;
+            this.RequestId = string.Empty;
         }
 
         public void OnGet() {

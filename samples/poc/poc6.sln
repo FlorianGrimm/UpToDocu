@@ -5,21 +5,21 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{68E7CC3E-8403-43A5-AF82-94B1E48FAF4A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpToDocuLibrary5", "..\..\src\UpToDocuLibrary\UpToDocuLibrary5.csproj", "{3B6ED7A8-362D-4C06-8F72-105873CE14C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpToDocuLibrary5", "..\..\src\UpToDocuLibrary\UpToDocuLibrary6.csproj", "{3B6ED7A8-362D-4C06-8F72-105873CE14C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocLibrary", "src\PocLibrary\PocLibrary5.csproj", "{CDC28486-824F-48CC-BCD6-C43F9FFD0530}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocLibrary", "src\PocLibrary\PocLibrary6.csproj", "{CDC28486-824F-48CC-BCD6-C43F9FFD0530}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocWebApp", "src\PocWebApp\PocWebApp5.csproj", "{D91D14A2-AA6D-4899-8EF2-8075A1A7EF61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocWebApp", "src\PocWebApp\PocWebApp6.csproj", "{D91D14A2-AA6D-4899-8EF2-8075A1A7EF61}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F2C20BEF-DA8B-47A4-9130-22D5D95F38A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocLibraryTest", "test\PocLibraryTest\PocLibraryTest5.csproj", "{27EDFC61-FAB5-4957-8F41-76C8D97C18FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocLibraryTest", "test\PocLibraryTest\PocLibraryTest6.csproj", "{27EDFC61-FAB5-4957-8F41-76C8D97C18FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocWebAppTest", "test\PocWebAppTest\PocWebAppTest5.csproj", "{4AA8EF84-EA6C-4B05-BC3F-4CBD3B7826B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocWebAppTest", "test\PocWebAppTest\PocWebAppTest6.csproj", "{4AA8EF84-EA6C-4B05-BC3F-4CBD3B7826B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UpToDocu", "UpToDocu", "{47B394A7-17DD-4FDE-8C1B-B8C9E122C1D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Specification", "src\Specification\Specification5.csproj", "{2613DB57-58E2-418B-AEE4-1273D4599C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Specification", "src\Specification\Specification6.csproj", "{2613DB57-58E2-418B-AEE4-1273D4599C92}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpToDocuTestLibrary5", "..\..\src\UpToDocuTestLibrary\UpToDocuTestLibrary5.csproj", "{33FFD8EB-CC8B-4C18-B17B-79B90FA2D9A3}"
 EndProject

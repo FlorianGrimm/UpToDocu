@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Poc.Entity {
     public class TodoEntity {
+        public TodoEntity() {
+            this.Title = string.Empty;
+        }
         public Guid Id { get; set; }
         public string Title { get; set; }
         public bool Done { get; set; }
