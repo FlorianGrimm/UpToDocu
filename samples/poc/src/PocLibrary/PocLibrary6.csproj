@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Specification\Specification.csproj" />
+    <ProjectReference Include="..\Specification\Specification6.csproj" />
   </ItemGroup>
 
 </Project>

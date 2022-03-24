@@ -25,8 +25,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\UpToDocuWepTestLibrary\UpToDocuWepTestLibrary5.csproj" />
-    <ProjectReference Include="..\..\src\PocLibrary\PocLibrary.csproj" />
-    <ProjectReference Include="..\..\src\PocWebApp\PocWebApp.csproj" />
+    <ProjectReference Include="..\..\src\PocLibrary\PocLibrary5.csproj" />
+    <ProjectReference Include="..\..\src\PocWebApp\PocWebApp5.csproj" />
   </ItemGroup>
 
 </Project>

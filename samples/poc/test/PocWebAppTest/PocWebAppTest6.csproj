@@ -24,9 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\UpToDocuWepTestLibrary\UpToDocuWepTestLibrary5.csproj" />
-    <ProjectReference Include="..\..\src\PocLibrary\PocLibrary.csproj" />
-    <ProjectReference Include="..\..\src\PocWebApp\PocWebApp.csproj" />
+    <ProjectReference Include="..\..\..\..\src\UpToDocuWepTestLibrary\UpToDocuWepTestLibrary6.csproj" />
+    <ProjectReference Include="..\..\src\PocLibrary\PocLibrary6.csproj" />
+    <ProjectReference Include="..\..\src\PocWebApp\PocWebApp6.csproj" />
   </ItemGroup>
 
 </Project>
