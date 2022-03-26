@@ -10,7 +10,7 @@ namespace PocWebApp.Pages {
     public class ErrorModel : PageModel {
         public string RequestId { get; set; }
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool ShowRequestId => !string.IsNullOrEmpty(this.RequestId);
 
         private readonly ILogger<ErrorModel> _Logger;
 
@@ -20,7 +20,7 @@ namespace PocWebApp.Pages {
         }
 
         public void OnGet() {
-            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            this.RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier;
         }
     }
 }

@@ -21,3 +21,9 @@ namespace PocWebApp {
                 });
     }
 }
+/*
+
+dotnet-aspnet-codegenerator razorpage --project PocWebApp6.csproj --model ToDoEntity --dataContext PocDBContext --relativeFolderPath Pages
+ 
+ 
+ */

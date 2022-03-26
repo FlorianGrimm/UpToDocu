@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+using Poc.Entity;
 
 using System;
 using System.Collections.Generic;
@@ -13,13 +16,22 @@ using System.Threading.Tasks;
 namespace PocWebApp {
     public class Startup {
         public Startup(IConfiguration configuration) {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            services.AddDbContext<PocContext>(options => {
+                var todoConnectionString = this.Configuration.GetConnectionString("ToDo");
+                if (string.IsNullOrEmpty(todoConnectionString)) {
+                    options.UseInMemoryDatabase("Todo");
+                } else { 
+                    options.UseSqlServer(todoConnectionString);
+                }
+            });
+
             services.AddControllers();
             services.AddRazorPages();
         }
