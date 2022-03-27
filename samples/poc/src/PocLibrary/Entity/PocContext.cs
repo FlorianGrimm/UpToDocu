@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//Poc.Entity.PocContext
+
 namespace Poc.Entity {
     public partial class PocContext : DbContext {
         public PocContext() {

@@ -8,14 +8,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 using Poc.Entity;
+using Poc.Repository;
 
 namespace PocWebApp.Pages.ToDo {
     public class CreateModel : PageModel {
-        private readonly Poc.Entity.PocContext _context;
+        private readonly PocRepository _PocRepository;
 
-        public CreateModel(Poc.Entity.PocContext context) {
-            this._context = context;
-            this.TodoCreate = new TodoCreate();
+        public CreateModel(
+            PocRepository pocRepository
+            ) {
+            this._PocRepository = pocRepository;
+            this.TodoCreate = new TodoItemCreate();
         }
 
         public IActionResult OnGet() {
@@ -23,26 +26,14 @@ namespace PocWebApp.Pages.ToDo {
         }
 
         [BindProperty]
-        public TodoCreate TodoCreate { get; set; }
+        public TodoItemCreate TodoCreate { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync() {
             if (!this.ModelState.IsValid) {
                 return this.Page();
             }
-
-            var todoCreate = this.TodoCreate;
-            var now = System.DateTimeOffset.Now;
-            var todo = new TodoEntity() {
-                Id = Guid.NewGuid(),
-                Title = todoCreate.Title,
-                Done = todoCreate.Done,
-                CreatedAt = now,
-                ModifiedAt = now
-            };
-            this._context.Todo.Add(todo);
-            await this._context.SaveChangesAsync();
-
+            await this._PocRepository.TodoRepository.Insert(this.TodoCreate);
             return this.RedirectToPage("./Index");
         }
     }

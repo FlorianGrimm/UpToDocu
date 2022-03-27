@@ -1,13 +1,9 @@
 <Project>
   <PropertyGroup>
-    <Company>Solvin</Company>
-    <Authors>
-    </Authors>
-    <Product>OneTimesheet</Product>
-    <Title>OneTimesheet</Title>
-    <RootDirectory>$(MSBuildThisFileDirectory)</RootDirectory>
-    <BaseIntermediateOutputPath>$(RootDirectory)output\$(MSBuildProjectName)\obj\$(PlatformName)</BaseIntermediateOutputPath>
-    <BaseOutputPath>$(RootDirectory)output\$(MSBuildProjectName)\bin\$(PlatformName)</BaseOutputPath>
+    <Company></Company>
+    <Authors>Florian Grimm</Authors>
+    <Product></Product>
+    <Title></Title>
     <LangVersion>Latest</LangVersion>
     <Nullable>enable</Nullable>
     <GitVersionBaseDirectory>$(MSBuildThisFileDirectory)</GitVersionBaseDirectory>

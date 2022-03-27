@@ -23,20 +23,23 @@ namespace PocWebApp {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddDbContext<PocContext>(options => {
-                var todoConnectionString = this.Configuration.GetConnectionString("ToDo");
-                if (string.IsNullOrEmpty(todoConnectionString)) {
-                    options.UseInMemoryDatabase("Todo");
-                } else { 
-                    options.UseSqlServer(todoConnectionString);
-                }
-            });
+            services.AddDbContext<PocContext>(
+                optionsAction: options => {
+                    var todoConnectionString = this.Configuration.GetConnectionString("ToDo");
+                    if (string.IsNullOrEmpty(todoConnectionString)) {
+                        options.UseInMemoryDatabase("Todo");
+                    } else { 
+                        options.UseSqlServer(todoConnectionString, options => {
+                            options.MigrationsAssembly("PocWebApp6");
+                        });
+                    }
+                },
+                contextLifetime: ServiceLifetime.Transient);
 
             services.AddControllers();
             services.AddRazorPages();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();

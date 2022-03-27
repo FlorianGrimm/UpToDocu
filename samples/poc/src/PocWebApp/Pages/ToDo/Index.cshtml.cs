@@ -2,28 +2,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Poc.Entity;
 
-namespace PocWebApp.Pages.ToDo
-{
+using Poc.Entity;
+using Poc.Repository;
+
+namespace PocWebApp.Pages.ToDo {
     public class IndexModel : PageModel
     {
-        private readonly Poc.Entity.PocContext _context;
+        private readonly PocRepository _PocRepository;
 
-        public IndexModel(Poc.Entity.PocContext context)
+        public IndexModel(PocRepository pocRepository)
         {
-            this._context = context;
-            this.ToDo = new List<TodoEntity>();
+            this.ToDo = new List<TodoItem>();
+            this._PocRepository = pocRepository;
         }
 
-        public IList<TodoEntity> ToDo { get;set; }
+        public IList<TodoItem> ToDo { get;set; }
 
         public async Task OnGetAsync()
         {
-            this.ToDo = await this._context.Todo.ToListAsync();
+            this.ToDo = await this._PocRepository.TodoRepository.GetList();
         }
     }
 }

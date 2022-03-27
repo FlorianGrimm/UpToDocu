@@ -1,8 +1,8 @@
 ﻿using System;
 
 namespace Poc.Entity {
-    public partial class TodoCreate {
-        public TodoCreate() {
+    public partial class TodoItemCreate {
+        public TodoItemCreate() {
             this.Title = string.Empty;
         }
         public Guid? Id { get; set; }

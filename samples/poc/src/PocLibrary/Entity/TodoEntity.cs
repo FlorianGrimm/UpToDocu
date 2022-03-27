@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Poc.Repository;
+
+using System;
 
 namespace Poc.Entity {
     public partial class TodoEntity {
