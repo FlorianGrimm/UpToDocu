@@ -4,11 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>UpToDocu</RootNamespace>
+    <RootNamespace>Poc</RootNamespace>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <ProjectReference Include="..\UpToDocuLibrary\UpToDocuLibrary6.csproj" />
+    <ProjectReference Include="..\..\..\..\src\UpToDocuLibrary\UpToDocuLibrary.csproj" />
   </ItemGroup>
 
 </Project>

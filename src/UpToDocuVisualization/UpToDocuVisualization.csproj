@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
 		<SpaRoot>App\</SpaRoot>
 	</PropertyGroup>
@@ -31,14 +31,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\UpToDocuLibrary\UpToDocuLibrary5.csproj" />
+	  <ProjectReference Include="..\UpToDocuLibrary\UpToDocuLibrary.csproj" />
+	  <ProjectReference Include="..\UpToDocuWebLibrary\UpToDocuWebLibrary.csproj" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Message Text="dotnet exec $(TargetPath)  --swaggerDoc=v1 --output &quot;$(ProjectDir)..\..\output\ClientSPA.json&quot;  --host http://localhost:5000/ &quot;$(TargetPath)&quot;" Importance="high" />
 		<Exec Command="dotnet exec $(TargetPath)  --swaggerDoc=v1 --output &quot;$(ProjectDir)..\..\output\ClientSPA.json&quot;  --host http://localhost:5000/ &quot;$(TargetPath)&quot;" ContinueOnError="true" />
 		<Exec Command="dotnet exec $(TargetPath)  --swaggerDoc=v1 --output &quot;$(ProjectDir)..\..\output\ClientComplete.json&quot;  --host http://localhost:5000/ &quot;$(TargetPath)&quot;" ContinueOnError="true" />
-		<Exec Condition="Exists('$(ProjectDir)..\..\output\ClientSPA.json')" Command="$(NSwagExe_Net50) run TSClient5.nswag /variables:Configuration=$(Configuration)" IgnoreExitCode="true" />
+		<Exec Condition="Exists('$(ProjectDir)..\..\output\ClientSPA.json')" Command="$(NSwagExe_Net60) run TSClient6.nswag /variables:Configuration=$(Configuration)" IgnoreExitCode="true" />
 
 		<!--
 		<Copy Condition="Exists('$(ProjectDir)..\..\output\ClientSPA.json')" SourceFiles="$(ProjectDir)..\..\output\ClientSPA.json" DestinationFiles="$(ProjectDir)..\..\src\Solvin.OneTS.Deploy\ClientSPA.json" />

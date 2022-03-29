@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\UpToDocuLibrary\UpToDocuLibrary6.csproj" />
+    <ProjectReference Include="..\..\src\UpToDocuLibrary\UpToDocuLibrary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -17,6 +17,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.3.0" />
     
-    <ProjectReference Include="..\UpToDocuLibrary\UpToDocuLibrary6.csproj" />
+    <ProjectReference Include="..\UpToDocuLibrary\UpToDocuLibrary.csproj" />
   </ItemGroup>
 </Project>
