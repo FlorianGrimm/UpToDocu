@@ -16,16 +16,17 @@ namespace PocWebApp.Pages.ToDo {
 
         public DetailsModel(PocRepository pocRepository) {
             this._PocRepository = pocRepository;
-            this.ToDo = new TodoEntity();
+            this.ToDo = new TodoItem();
         }
 
-        public TodoEntity ToDo { get; set; }
+        public TodoItem ToDo { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id) {
-            if (id.GetValueOrDefault() == Guid.Empty) {
+            var guidId = id.GetValueOrDefault();
+            if (guidId == Guid.Empty) {
                 return this.NotFound();
             } else {
-                var toDo = await this._PocRepository.TodoRepository.GetItem(id);
+                var toDo = await this._PocRepository.TodoRepository.GetItem(guidId);
                 if (toDo == null) {
                     return this.NotFound();
                 } else {

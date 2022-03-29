@@ -24,6 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\UpToDocuLibrary\UpToDocuLibrary6.csproj" />
+    <ProjectReference Include="..\..\..\..\src\UpToDocuWebLibrary\UpToDocuWebLibrary6.csproj" />
     <ProjectReference Include="..\PocLibrary\PocLibrary6.csproj" />
   </ItemGroup>
 

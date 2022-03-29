@@ -1,0 +1,1 @@
+https://github.com/tisoap/react-flow-smart-edge/tree/main/src/SmartEdge

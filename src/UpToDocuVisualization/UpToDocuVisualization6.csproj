@@ -32,6 +32,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\UpToDocuLibrary\UpToDocuLibrary6.csproj" />
+	  <ProjectReference Include="..\UpToDocuWebLibrary\UpToDocuWebLibrary6.csproj" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

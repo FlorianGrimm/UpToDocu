@@ -18,17 +18,18 @@ namespace PocWebApp.Pages.ToDo {
             PocRepository pocRepository
             ) {
             this._PocRepository = pocRepository;
-            this.ToDo = new TodoEntity();
+            this.ToDo = new TodoItem();
         }
 
         [BindProperty]
-        public TodoEntity ToDo { get; set; }
+        public TodoItem ToDo { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id) {
-            if (!id.HasValue) {
+            var guidId = id.GetValueOrDefault();
+            if (guidId == Guid.Empty) {
                 return this.NotFound();
             } else {
-                var toDo = await this._PocRepository.TodoRepository.GetItem(id);
+                var toDo = await this._PocRepository.TodoRepository.GetItem(guidId);
                 if (toDo == null) {
                     return this.NotFound();
                 } else {
@@ -39,11 +40,13 @@ namespace PocWebApp.Pages.ToDo {
         }
 
         public async Task<IActionResult> OnPostAsync(Guid? id) {
-            if (id == null) {
+            var guidId = id.GetValueOrDefault();
+            if (guidId == Guid.Empty) {
                 return this.NotFound();
+            } else {
+                await this._PocRepository.TodoRepository.Delete(new TodoItemDelete() { Id = guidId });
+                return this.RedirectToPage("./Index");
             }
-            await this._PocRepository.TodoRepository.Delete(new TodoItemDelete() { Id=id});
-            return this.RedirectToPage("./Index");
         }
     }
 }

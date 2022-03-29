@@ -51,5 +51,17 @@
             (byte)value
         };
         }
+
+        public bool EqualsSerialVersion(byte[] vs1, byte[] vs2) {
+            if (vs1.Length == vs2.Length) {
+                for (int i = 0; i < vs1.Length; i++) {
+                    if (vs1[i] != vs2[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
     }
 }

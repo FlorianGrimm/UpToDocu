@@ -68,9 +68,10 @@ namespace Poc.Repository {
             };
             context.Todo.Add(todoEntity);
             await context.SaveChangesAsync();
+            return this.ConvertFromEntity(todoEntity);
         }
 
-        public async Task<TodoItem> Update(TodoItemUpdate todoEntity) {
+        public async Task<TodoItem?> Update(TodoItemUpdate todoEntity) {
             var context = this.Repository.Context;
             var id = todoEntity.Id;
             var toDoEntityCurrent = await context.Todo.FindAsync(id);
@@ -79,14 +80,19 @@ namespace Poc.Repository {
                 throw new InvalidOperationException();
             } else {
                 var now = System.DateTimeOffset.Now;
-
-                toDoEntityCurrent.Title = todoEntity.Title;
-                toDoEntityCurrent.Done = todoEntity.Done;
-                toDoEntityCurrent.ModifiedAt = now;
-                context.Update(todoEntity);
-                await context.SaveChangesAsync();
-                //return this.RedirectToAction(nameof(Index));
-                return this.ConvertFromEntity(toDoEntityCurrent)!;
+                if (string.Equals(toDoEntityCurrent.Title, todoEntity.Title, StringComparison.Ordinal)
+                    && (toDoEntityCurrent.Done == todoEntity.Done)
+                    ) {
+                    return null;
+                } else {
+                    toDoEntityCurrent.Title = todoEntity.Title;
+                    toDoEntityCurrent.Done = todoEntity.Done;
+                    toDoEntityCurrent.ModifiedAt = now;
+                    context.Update(toDoEntityCurrent);
+                    await context.SaveChangesAsync();
+                    //return this.RedirectToAction(nameof(Index));
+                    return this.ConvertFromEntity(toDoEntityCurrent)!;
+                }
             }
             /*
             try {
@@ -102,12 +108,20 @@ namespace Poc.Repository {
             var todoEntity = await context.Todo.FindAsync(todoItemDelete.Id);
             if (todoEntity is null) {
                 return false;
-            } else if (todoEntity.SerialVersion != this._SerialVersionConverter.ConvertToEntity(todoItemDelete.SerialVersion)){
-                return false;
             } else {
-                context.Todo.Remove(todoEntity);
-                await context.SaveChangesAsync();
-                return true;
+                if (
+                    !string.IsNullOrEmpty(todoItemDelete.SerialVersion)
+                    && (this._SerialVersionConverter.EqualsSerialVersion(
+                        todoEntity.SerialVersion,
+                        this._SerialVersionConverter.ConvertToEntity(todoItemDelete.SerialVersion)
+                        ))
+                    ) {
+                    return false;
+                } else {
+                    context.Todo.Remove(todoEntity);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
             }
         }
 

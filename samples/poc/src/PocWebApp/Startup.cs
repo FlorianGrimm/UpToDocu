@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using Poc;
 using Poc.Entity;
 
 using System;
@@ -38,6 +39,8 @@ namespace PocWebApp {
 
             services.AddControllers();
             services.AddRazorPages();
+
+            services.AddRepository();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

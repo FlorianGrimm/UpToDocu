@@ -64,6 +64,32 @@ namespace UpToDocu {
                     kv.Value.Name = kv.Key;
                 }
             }
+            foreach (var property in this.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)) {
+                if (property.CanRead) {
+                    if (property.PropertyType.IsAssignableTo(typeof(UTDObject))) {
+                        if (property.GetValue(this) is UTDObject utdObject) {
+                            if (string.IsNullOrEmpty(utdObject.Name)) {
+                                utdObject.Name = property.Name;
+                            }
+                            if (!this.PropsByCallerMemberName.ContainsKey(utdObject.Name)) {
+                                this.PropsByCallerMemberName[utdObject.Name] = utdObject;
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (var method in this.GetType().GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)) {
+                var methodResult = method.Invoke(obj: this, parameters: null);
+                if (methodResult is UTDObject utdObject) {
+                    if (string.IsNullOrEmpty(utdObject.Name)) {
+                        utdObject.Name = method.Name;
+                    }
+                    if (!this.PropsByCallerMemberName.ContainsKey(utdObject.Name)) {
+                        this.PropsByCallerMemberName[utdObject.Name] = utdObject;
+                    }
+                }
+            }
+
         }
     }
 }

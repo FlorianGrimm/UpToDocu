@@ -10,20 +10,33 @@ using System.Threading.Tasks;
 
 namespace UpToDocuVisualization {
     public class Program {
-        public static void Main(string[] args) {
-            var hostBuilder = CreateHostBuilder(args);
-            if (Swagger.SwaggerGenerator.Run(args, hostBuilder)) {
-                System.Console.Out.WriteLine("booting");
-                //hostBuilder.Build().Run();
+        public static async Task<int> Main(string[] args) {
+            try {
+                var hostBuilder = CreateHostBuilder(args);
+                if (global::UpToDocu.Swagger.SwaggerGenerator.Generate(args, hostBuilder, hostBuilder => {
+                    hostBuilder.UseEnvironment("SwaggerGenerator");
+                })) {
+                    System.Console.Out.WriteLine("SwaggerGenerator");
+                    return 0;
+                }
+                {
+                    System.Console.Out.WriteLine("Booting WebApp");
+                    var host = hostBuilder.Build();
+                    await UpToDocu.WebApp.UpToDocuHostExtensions.RunAsync(host);
+                    return 0;
+                }
+            } catch (System.Exception error) {
+                UpToDocu.Console.ExceptionExtensions.WriteError(error);
+                return 1;
             }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) {
-            var result = Host.CreateDefaultBuilder(args);
-            result.ConfigureWebHostDefaults(webBuilder => {
+            var hostBuilder = Host.CreateDefaultBuilder(args);
+            hostBuilder.ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.UseStartup<Startup>();
                 });
-            return result;
+            return hostBuilder;
         }
     }
 }

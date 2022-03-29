@@ -16,7 +16,8 @@ namespace Poc {
             ) {
             services.AddTransient<PocContext>();
             services.AddTransient<PocRepository>();
-            services.AddScoped<PocContextScoped>();
+            services.AddTransient<PocRepository>();
+            services.AddScoped<PocRepositoryScoped>();
             return services;
         }
     }

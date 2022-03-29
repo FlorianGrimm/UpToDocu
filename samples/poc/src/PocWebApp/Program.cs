@@ -1,26 +1,27 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PocWebApp {
-    public class Program {
-        public static void Main(string[] args) {
+    public static class Program {
+        public static async Task Main(string[] args) {
             IHostBuilder hostBuilder = CreateHostBuilder(args);
-            hostBuilder.Build().Run();
-            hostBuilder.Build().RunAsync
+            using var host = hostBuilder.Build();
+
+            await PocWebApp.HostingAbstractionsHostExtensions.RunAsync(host);
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => {
-                    webBuilder.UseStartup<Startup>();
+        public static IHostBuilder CreateHostBuilder(string[] args) {
+            var hostBuilder = Host.CreateDefaultBuilder(args);
+            hostBuilder.ConfigureWebHostDefaults(webBuilder => {
+                webBuilder.UseStartup<Startup>();
+                webBuilder.UseKestrel((Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions kestrelServerOptions) => {
+                    //kestrelServerOptions.ApplicationServices
                 });
+            });
+            return hostBuilder;
+        }
     }
 }
 /*

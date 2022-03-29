@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Specification6", "samples\p
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocWebApp6", "samples\poc\src\PocWebApp\PocWebApp6.csproj", "{525DD53F-DD45-4DCF-8957-8DEE7C0C161E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpToDocuWebLibrary6", "src\UpToDocuWebLibrary\UpToDocuWebLibrary6.csproj", "{3219C357-5925-41D6-902F-94155BA063E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{525DD53F-DD45-4DCF-8957-8DEE7C0C161E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{525DD53F-DD45-4DCF-8957-8DEE7C0C161E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{525DD53F-DD45-4DCF-8957-8DEE7C0C161E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3219C357-5925-41D6-902F-94155BA063E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3219C357-5925-41D6-902F-94155BA063E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3219C357-5925-41D6-902F-94155BA063E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3219C357-5925-41D6-902F-94155BA063E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{BE9245AD-39EC-4653-8ECD-B9EE6C2464D9} = {A9606ED4-D3E9-4673-AE43-7CA0CFAECC50}
 		{77CB4479-2B18-4985-9AA1-FBBD468FE099} = {A9606ED4-D3E9-4673-AE43-7CA0CFAECC50}
 		{525DD53F-DD45-4DCF-8957-8DEE7C0C161E} = {A9606ED4-D3E9-4673-AE43-7CA0CFAECC50}
+		{3219C357-5925-41D6-902F-94155BA063E2} = {8A38BDCA-BD5A-4068-8FD7-1F99C5B648D4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C79B118-7431-44D7-B911-CA5013DF5AAF}
