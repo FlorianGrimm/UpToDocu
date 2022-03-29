@@ -21,7 +21,7 @@ namespace UpToDocu.Console {
             System.Console.Error.WriteLine(error.ToString());
             if (error is System.AggregateException aggregateException) {
                 foreach (var innerException in aggregateException.InnerExceptions) {
-                    innerWriteErrorWriteError(innerException);
+                    innerWriteError(innerException);
                 }
             }
             return true;

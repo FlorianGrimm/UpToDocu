@@ -44,7 +44,7 @@ namespace UpToDocu.Swagger {
                 var outputPath = !string.IsNullOrEmpty(output)
                         ? System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), output)
                         : null;
-                using (var streamWriter = (!string.IsNullOrEmpty(outputPath) ? System.IO.File.CreateText(outputPath) : Console.Out)) {
+                using (var streamWriter = (!string.IsNullOrEmpty(outputPath) ? System.IO.File.CreateText(outputPath) : System.Console.Out)) {
                     IOpenApiWriter writer;
 
                     if (yaml) {

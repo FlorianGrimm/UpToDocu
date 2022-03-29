@@ -21,19 +21,25 @@ namespace UpToDocuVisualization {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            this.ConfigureServicesCommon(services, this.ConfigureServicesOData);
+            
+        }
+
+        public void ConfigureSwaggerGeneratorServices(IServiceCollection services) {
+            this.ConfigureServicesCommon(services, (_, _) => { });
+        }
+        public void ConfigureServicesCommon(
+            IServiceCollection services, 
+            Action<IServiceCollection, IMvcBuilder> configuremvcBuilderControllers
+            ) {
             var mvcBuilderControllers = services.AddControllers((Microsoft.AspNetCore.Mvc.MvcOptions options) => {
                 options.RespectBrowserAcceptHeader = true;
             });
+            configuremvcBuilderControllers(services, mvcBuilderControllers);
             var mvcBuilderRazor = services.AddRazorPages((Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions options) => {
                 //options.Conventions.
             });
-            /*
-            mvcBuilderControllers.AddOData((odataOptions) => {
-                odataOptions.EnableQueryFeatures().Select().Filter().OrderBy();
-                var edmModel = UpToDocuVisualization.Model.EdmModelGenerator.GetEdmModel();
-                odataOptions.AddRouteComponents("odata", edmModel);
-            });
-            */
+          
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc(
                     "v1",
@@ -46,6 +52,13 @@ namespace UpToDocuVisualization {
                 //c.SchemaFilter<EnumNamesSchemaFilter>();
                 //c.DocumentFilter<DangerousSchemasDocumentFilter>();
             });
+        }
+        public void ConfigureServicesOData(IServiceCollection services, IMvcBuilder mvcBuilderControllers) {
+          mvcBuilderControllers.AddOData((odataOptions) => {
+              odataOptions.EnableQueryFeatures().Select().Filter().OrderBy();
+              var edmModel = UpToDocuVisualization.Model.EdmModelGenerator.GetEdmModel();
+              odataOptions.AddRouteComponents("odata", edmModel);
+          });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
