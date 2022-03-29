@@ -10,14 +10,20 @@ using Microsoft.EntityFrameworkCore;
 using Poc.Entity;
 using Poc.Repository;
 
+using UpToDocu;
+
 namespace PocWebApp.Pages.ToDo {
     public class DeleteModel : PageModel {
         private readonly PocRepository _PocRepository;
+        private readonly UTDService _UtdService;
 
         public DeleteModel(
-            PocRepository pocRepository
+            PocRepository pocRepository,
+            UTDService utdService
+
             ) {
             this._PocRepository = pocRepository;
+            this._UtdService = utdService;
             this.ToDo = new TodoItem();
         }
 
@@ -40,11 +46,21 @@ namespace PocWebApp.Pages.ToDo {
         }
 
         public async Task<IActionResult> OnPostAsync(Guid? id) {
+            this._UtdService + 
+            UTD.ConditionalAsync(
+                id.GetValueOrDefault(),
+                (guidId) => (guidId == Guid.Empty),
+
+                );
             var guidId = id.GetValueOrDefault();
             if (guidId == Guid.Empty) {
                 return this.NotFound();
             } else {
-                await this._PocRepository.TodoRepository.Delete(new TodoItemDelete() { Id = guidId });
+                await this._PocRepository.TodoRepository.Delete(
+                    new TodoItemDelete(
+                        Id: guidId,
+                        SerialVersion: string.Empty
+                        ));
                 return this.RedirectToPage("./Index");
             }
         }

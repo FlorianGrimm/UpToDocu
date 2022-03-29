@@ -26,6 +26,8 @@ namespace UpToDocu {
             }
         }
 
+        public UTDObject? CreationAlias { get; set; }
+
         public List<UTDObject> Props { get; }
         public string Name { get; set; }
         public UTDObject? Kind { get; set; }

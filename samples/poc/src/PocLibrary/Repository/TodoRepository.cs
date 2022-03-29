@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Poc.Repository {
+    public class TodoItemBehaviour { 
+    }
     public class TodoRepository : IDisposable {
         private PocRepository? _Repository;
         public PocRepository Repository => _Repository ?? throw new ObjectDisposedException(nameof(Repository));

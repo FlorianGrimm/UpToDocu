@@ -41,29 +41,15 @@ namespace PocWebApp.Pages.ToDo {
                 return this.Page();
             }
             var result = await this._PocRepository.TodoRepository.Update(
-                new TodoItemUpdate() {
-                    Id = this.ToDo.Id,
-                    Title = this.ToDo.Title,
-                    Done = this.ToDo.Done,
-                    SerialVersion = this.ToDo.SerialVersion
-                }
+                new TodoItemUpdate(
+                    Id : this.ToDo.Id,
+                    Title:this.ToDo.Title,
+                    Done:  this.ToDo.Done,
+                    SerialVersion:  this.ToDo.SerialVersion
+                    ) 
                 );
-            //if (result is null) { } else { }
+     
             return this.RedirectToPage("./Index");
-            //try {
-            //    this._context.Attach(this.ToDo).State = EntityState.Modified;
-            //    await this._context.SaveChangesAsync();
-            //} catch (DbUpdateConcurrencyException) {
-            //    if (!this.ToDoExists(this.ToDo.Id)) {
-            //        return this.NotFound();
-            //    } else {
-            //        throw;
-            //    }
-            //}
         }
-
-        //private bool ToDoExists(Guid id) {
-        //    return this._context.Todo.Any(e => e.Id == id);
-        //}
     }
 }

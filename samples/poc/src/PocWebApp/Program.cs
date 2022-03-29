@@ -5,11 +5,29 @@ using System.Threading.Tasks;
 
 namespace PocWebApp {
     public static class Program {
-        public static async Task Main(string[] args) {
-            IHostBuilder hostBuilder = CreateHostBuilder(args);
-            using var host = hostBuilder.Build();
-
-            await PocWebApp.HostingAbstractionsHostExtensions.RunAsync(host);
+        public static async Task<int> Main(string[] args) {
+            try {
+                var hostBuilder = CreateHostBuilder(args);
+                if (global::UpToDocu.Swagger.SwaggerGenerator.Generate(
+                    args: args,
+                    hostBuilder: hostBuilder,
+                    swaggerOptions: new UpToDocu.Swagger.SwaggerOptions(),
+                    configureForSwaggerGeneration: hostBuilder => {
+                        hostBuilder.UseEnvironment("SwaggerGenerator");
+                    })) {
+                    System.Console.Out.WriteLine("SwaggerGenerator");
+                    return 0;
+                }
+                {
+                    System.Console.Out.WriteLine("Booting WebApp");
+                    var host = hostBuilder.Build();
+                    await UpToDocu.WebApp.UpToDocuHostExtensions.RunAsync(host);
+                    return 0;
+                }
+            } catch (System.Exception error) {
+                UpToDocu.Console.ExceptionExtensions.WriteError(error);
+                return 1;
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) {

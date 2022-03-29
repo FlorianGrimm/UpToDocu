@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using UpToDocu;
+
 namespace PocWebApp {
     public class Startup {
         public Startup(IConfiguration configuration) {
@@ -24,6 +26,12 @@ namespace PocWebApp {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            this.ConfigureServicesCommon(services);
+        }
+        public void ConfigureSwaggerGeneratorServices(IServiceCollection services) {
+            this.ConfigureServicesCommon(services);
+        }
+        public void ConfigureServicesCommon(IServiceCollection services) {
             services.AddDbContext<PocContext>(
                 optionsAction: options => {
                     var todoConnectionString = this.Configuration.GetConnectionString("ToDo");
@@ -39,6 +47,7 @@ namespace PocWebApp {
 
             services.AddControllers();
             services.AddRazorPages();
+            services.AddUpToDocu();
 
             services.AddRepository();
         }

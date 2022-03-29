@@ -15,6 +15,9 @@ namespace UpToDocu {
         }
 
         public class Test1Spec : UTDSpecification {
+            //public static Test1Spec Instance => GetInstance<Test1Spec>(()=>new Test1Spec());
+            public static Test1Spec Instance => GetInstance(() => new Test1Spec());
+
             public Test1Spec() : base() {
             }
 

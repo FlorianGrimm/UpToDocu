@@ -9,11 +9,15 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace UpToDocuVisualization {
-    public class Program {
+    public static class Program {
         public static async Task<int> Main(string[] args) {
             try {
                 var hostBuilder = CreateHostBuilder(args);
-                if (global::UpToDocu.Swagger.SwaggerGenerator.Generate(args, hostBuilder, hostBuilder => {
+                if (global::UpToDocu.Swagger.SwaggerGenerator.Generate(
+                    args:args, 
+                    hostBuilder: hostBuilder, 
+                    swaggerOptions: new UpToDocu.Swagger.SwaggerOptions(),
+                    configureForSwaggerGeneration:hostBuilder => {
                     hostBuilder.UseEnvironment("SwaggerGenerator");
                 })) {
                     System.Console.Out.WriteLine("SwaggerGenerator");

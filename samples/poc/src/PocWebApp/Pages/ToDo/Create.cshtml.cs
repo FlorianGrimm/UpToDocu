@@ -18,7 +18,11 @@ namespace PocWebApp.Pages.ToDo {
             PocRepository pocRepository
             ) {
             this._PocRepository = pocRepository;
-            this.TodoCreate = new TodoItemCreate();
+            this.TodoCreate = new TodoItemCreate(
+                Id: Guid.Empty,
+                Title: string.Empty,
+                Done: false
+                );
         }
 
         public IActionResult OnGet() {
