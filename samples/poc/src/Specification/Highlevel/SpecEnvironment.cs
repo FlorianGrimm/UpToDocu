@@ -7,8 +7,8 @@ using UpToDocu;
 
 namespace Poc.Highlevel {
     public partial class Spec {
-        public UTDEnv SqlServer { get; } = new UTDEnv();
-        public UTDEnv WebServer { get; } = new UTDEnv();
+        public UtdEnv SqlServer { get; } = new UtdEnv();
+        public UtdEnv WebServer { get; } = new UtdEnv();
         //public UTDEnv User { get; } = new UTDActor();
     }
 }

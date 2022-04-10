@@ -41,18 +41,16 @@ export class NavigatorStore extends DSNavigatorStore<NavigatorValue, NavigatorPa
             configuration
         );
 
-        this.pathNames = ["home", "pageA", "pageB"];
+        this.pathNames = ["home", "graph"];
 
         const path: NavigatorPaths = this.path = {
             home: "/",
-            pageA: "/pageA",
-            pageB: ["/pageB", "/pageB/:id"],
+            graph: "/graph",
         };
 
         this.patterns = {
             home: path.home,
-            pageA: path.pageA,
-            pageB: path.pageB[1],
+            graph: path.graph,
         };
 
         this.route = {
@@ -60,18 +58,14 @@ export class NavigatorStore extends DSNavigatorStore<NavigatorValue, NavigatorPa
                 path: this.path.home,
                 exact: true
             },
-            pageA: {
-                path: this.path.pageA
-            },
-            pageB: {
-                path: this.path.pageB
+            graph:{
+                path: this.path.graph
             },
         };
 
         this.pages = {
             "home": "home",
-            "pageA": "pageA",
-            "pageB": "pageB",
+            "graph":"graph"
         }
 
 

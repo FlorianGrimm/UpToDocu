@@ -5,7 +5,7 @@ import type {
     DSUIProps,
     DSUnlisten,
     IDSValueStore,
-    IDSStateValue,
+    IDSObjectStateValue,
     IDSStoreManager,
     IDSUIStateValue,
     ConfigurationDSValueStore,
@@ -134,7 +134,7 @@ export class DSValueStore<
     /**
      * gets all entities
      */
-    public getEntities(): { key: Key, stateValue: IDSStateValue<Value> }[] {
+    public getEntities(): { key: Key, stateValue: IDSObjectStateValue<Value> }[] {
         return [];
     }
 
@@ -287,7 +287,7 @@ export class DSValueStore<
      * @param stateValue 
      * @param properties 
      */
-    public emitValueChanged(msg: string, stateValue: IDSStateValue<Value>, properties?: Set<keyof Value>): void {
+    public emitValueChanged(msg: string, stateValue: IDSObjectStateValue<Value>, properties?: Set<keyof Value>): void {
         if ((this.arrValueChangedHandler !== undefined) || (this.isProcessDirtyConfigured)) {
             if (dsLog.isEnabled("emitValueChanged")) {
                 dsLog.infoACME("DS", "DSValueStore", "emitValueChanged", this.storeName);

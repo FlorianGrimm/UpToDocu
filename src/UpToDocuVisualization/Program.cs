@@ -16,7 +16,9 @@ namespace UpToDocuVisualization {
                 if (global::UpToDocu.Swagger.SwaggerGenerator.Generate(
                     args:args, 
                     hostBuilder: hostBuilder, 
-                    swaggerOptions: new UpToDocu.Swagger.SwaggerOptions(),
+                    swaggerOptions: new UpToDocu.Swagger.SwaggerOptions() { 
+                        DocumentName="v1",                        
+                    },
                     configureForSwaggerGeneration:hostBuilder => {
                     hostBuilder.UseEnvironment("SwaggerGenerator");
                 })) {

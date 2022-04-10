@@ -14,16 +14,16 @@ namespace UpToDocu {
             Assert.Equal(nameof(sut.Database), sut.Database.Name);
         }
 
-        public class Test1Spec : UTDSpecification {
+        public class Test1Spec : UtdSpecification {
             //public static Test1Spec Instance => GetInstance<Test1Spec>(()=>new Test1Spec());
             public static Test1Spec Instance => GetInstance(() => new Test1Spec());
 
             public Test1Spec() : base() {
             }
 
-            public UTDObject SqlServer => Define(() => "MS SQL");
+            public UtdObject SqlServer => Define(() => "MS SQL");
 
-            public UTDObject Database => Define(() => SqlServer / "TodoDB");
+            public UtdObject Database => Define(() => SqlServer / "TodoDB");
         }
     }
 }

@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace UpToDocu {
-    public class UTDObject : IEnumerable<UTDObject> {
-        public UTDObject(
+    public class UtdObject : IEnumerable<UtdObject> {
+        public UtdObject(
             string name = "",
-            UTDObject? kind = default,
+            UtdObject? kind = default,
             object? value = default,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0,
-            params UTDObject[] props
+            params UtdObject[] props
             ) {
-            this.Props = new System.Collections.Generic.List<UTDObject>();
+            this.Props = new System.Collections.Generic.List<UtdObject>();
             this.Name = name;
             this.Kind = kind;
             this.Value = value;
@@ -26,43 +26,44 @@ namespace UpToDocu {
             }
         }
 
-        public UTDObject? CreationAlias { get; set; }
+        public UtdObject? CreationAlias { get; set; }
+        public UtdObject? ReferencedValue { get; set; }
 
-        public List<UTDObject> Props { get; }
+        public List<UtdObject> Props { get; }
         public string Name { get; set; }
-        public UTDObject? Kind { get; set; }
+        public UtdObject? Kind { get; set; }
         public object? Value { get; set; }
         public string CallerMemberName { get; set; }
         public string CallerFilePath { get; set; }
         public int CallerLineNumber { get; set; }
 
 
-        public void AddRange(IEnumerable<UTDObject> props) {
+        public void AddRange(IEnumerable<UtdObject> props) {
             foreach (var prop in props) {
                 this.Add(prop);
             }
         }
 
-        public void Add(UTDObject prop) {
+        public void Add(UtdObject prop) {
             if (this.Props.Contains(prop)) {
             } else {
                 this.Props.Add(prop);
             }
         }
 
-        public UTDEnumerator<UTDObject> GetEnumerator() => new UTDEnumerator<UTDObject>(this.Props);
+        public UTDEnumerator<UtdObject> GetEnumerator() => new UTDEnumerator<UtdObject>(this.Props);
 
-        IEnumerator<UTDObject> IEnumerable<UTDObject>.GetEnumerator() => new UTDEnumerator<UTDObject>(this.Props);
+        IEnumerator<UtdObject> IEnumerable<UtdObject>.GetEnumerator() => new UTDEnumerator<UtdObject>(this.Props);
 
-        IEnumerator IEnumerable.GetEnumerator() => new UTDEnumerator<UTDObject>(this.Props);
+        IEnumerator IEnumerable.GetEnumerator() => new UTDEnumerator<UtdObject>(this.Props);
 
-        public static implicit operator UTDObject(string value) => new UTDObject(value: value);
+        public static implicit operator UtdObject(string value) => new UtdObject(value: value);
 
-        public static UTDObject operator +(UTDObject that, UTDObject child) {
+        public static UtdObject operator +(UtdObject that, UtdObject child) {
             that.Props.Add(child);
             return that;
         }
-        public static UTDObject operator /(UTDObject that, UTDObject child) {
+        public static UtdObject operator /(UtdObject that, UtdObject child) {
             that.Props.Add(child);
             return child;
         }
@@ -73,11 +74,11 @@ namespace UpToDocu {
 */
     }
 
-    public class UTDEnumerator<T> : IEnumerator<T> where T : UTDObject {
-        private readonly List<UTDObject> _List;
+    public class UTDEnumerator<T> : IEnumerator<T> where T : UtdObject {
+        private readonly List<UtdObject> _List;
         private int _Pos;
 
-        public UTDEnumerator(List<UTDObject> list) {
+        public UTDEnumerator(List<UtdObject> list) {
             this._List = list;
             this._Pos = -1;
         }

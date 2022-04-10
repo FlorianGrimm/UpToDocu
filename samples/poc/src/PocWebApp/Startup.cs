@@ -39,7 +39,7 @@ namespace PocWebApp {
                         options.UseInMemoryDatabase("Todo");
                     } else { 
                         options.UseSqlServer(todoConnectionString, options => {
-                            options.MigrationsAssembly("PocWebApp6");
+                            options.MigrationsAssembly("PocWebApp");
                         });
                     }
                 },
@@ -47,7 +47,9 @@ namespace PocWebApp {
 
             services.AddControllers();
             services.AddRazorPages();
-            services.AddUpToDocu();
+            services.AddUpToDocu(options => {
+                options.AddSpecification(PocWebApp.Spec.SpecificationPocWebApp.Instance);
+            });
 
             services.AddRepository();
         }

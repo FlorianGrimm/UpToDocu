@@ -17,11 +17,11 @@ namespace PocWebApp.Controller {
     [ApiController]
     public class ToDoEntityController : ControllerBase {
         private readonly PocRepository _PocRepository;
-        private readonly UTDService _UTDService;
+        private readonly UtdService _UTDService;
 
         public ToDoEntityController(
             PocRepositoryScoped pocRepositoryScoped,
-            UpToDocu.UTDService utdService
+            UpToDocu.UtdService utdService
             ) {
             this._PocRepository = pocRepositoryScoped.PocRepository;
             this._UTDService = utdService;

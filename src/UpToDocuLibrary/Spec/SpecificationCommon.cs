@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace UpToDocu.Spec {
-    public class SpecificationCommon : UpToDocu.UTDSpecification {
-        public static SpecificationCommon Instance => UpToDocu.UTDSpecification.GetInstance(() => new SpecificationCommon());
+    public class SpecificationCommon : UpToDocu.UtdSpecification {
+        public static SpecificationCommon Instance => UpToDocu.UtdSpecification.GetInstance(() => new SpecificationCommon());
 
         public SpecificationCommon() :base(){
             this.Kind = this.Specification;
         }
 
-        public UTDObject Specification => this.Define(() => UTD.UTDObject());
-        public UTDObject Class => this.Define(()=> UTD.UTDObject());
-        public UTDObject Method => this.Define(()=> UTD.UTDObject());
+        public UtdObject Specification => this.Define(() => UTD.UTDObject());
+        public UtdObject Class => this.Define(()=> UTD.UTDObject());
+        public UtdObject Method => this.Define(()=> UTD.UTDObject());
+        public UtdObject Condition => this.Define(() => UTD.UTDObject());
     }
 }

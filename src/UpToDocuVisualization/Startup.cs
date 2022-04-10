@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using UpToDocu;
+
 namespace UpToDocuVisualization {
     public class Startup {
         public Startup(IConfiguration configuration) {
@@ -39,7 +41,8 @@ namespace UpToDocuVisualization {
             var mvcBuilderRazor = services.AddRazorPages((Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions options) => {
                 //options.Conventions.
             });
-          
+            services.AddUpToDocu(options => { 
+            });
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc(
                     "v1",

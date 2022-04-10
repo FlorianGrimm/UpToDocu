@@ -1,7 +1,7 @@
 import {
     ConfigurationDSMapValueStore,
     IDSMapStore,
-    IDSStateValue,
+    IDSObjectStateValue,
     DSEventEntityVSAttach,
     DSEventEntitySVDetach,
     DSEventEntityVSValue,
@@ -17,7 +17,7 @@ export class DSMapStore<
     Value,
     StoreName extends string = string
     > extends DSValueStore<Key, Value, StoreName> implements IDSMapStore<Key, Value, StoreName> {
-    entities: Map<Key, IDSStateValue<Value>>;
+    entities: Map<Key, IDSObjectStateValue<Value>>;
     // dirtyEntities: { stateValue: IDSStateValue<Value>, properties?: Set<keyof Value> }[];
     // isProcessDirtyEntityConfigured: boolean;
 
@@ -31,7 +31,7 @@ export class DSMapStore<
         // this.isProcessDirtyEntityConfigured = false;
     }
 
-    public create(key: Key, value: Value): IDSStateValue<Value> {
+    public create(key: Key, value: Value): IDSObjectStateValue<Value> {
         const create = (this.configuration as ConfigurationDSMapValueStore<Value>).create;
         if (create !== undefined) {
             const result = create(value);
@@ -44,11 +44,11 @@ export class DSMapStore<
         }
     }
 
-    public get(key: Key): (IDSStateValue<Value> | undefined) {
+    public get(key: Key): (IDSObjectStateValue<Value> | undefined) {
         return this.entities.get(key);
     }
 
-    public getEntities(): { key: Key; stateValue: IDSStateValue<Value>; }[] {
+    public getEntities(): { key: Key; stateValue: IDSObjectStateValue<Value>; }[] {
         return Array.from(this.entities.entries()).map((e) => ({ key: e[0], stateValue: e[1] }));
     }
 
@@ -70,7 +70,7 @@ export class DSMapStore<
     // }
 
 
-    public attach(key: Key, stateValue: IDSStateValue<Value>): (IDSStateValue<Value> | undefined) {
+    public attach(key: Key, stateValue: IDSObjectStateValue<Value>): (IDSObjectStateValue<Value> | undefined) {
         if (stateValue.setStore(this)) {
             const oldValue = this.entities.get(key);
             if (oldValue === undefined) {
@@ -115,7 +115,7 @@ export class DSMapStore<
         return this.listenEvent(msg, "value", callback as any);
     }
 
-    public listenEventDetach<Event extends DSEventEntitySVDetach<IDSStateValue<Value>, Key, never, StoreName>>(msg: string, callback: DSEventHandler<Event['payload'], Event['event'], string>): DSUnlisten {
+    public listenEventDetach<Event extends DSEventEntitySVDetach<IDSObjectStateValue<Value>, Key, never, StoreName>>(msg: string, callback: DSEventHandler<Event['payload'], Event['event'], string>): DSUnlisten {
         return this.listenEvent(msg, "detach", callback as any);
     }
 

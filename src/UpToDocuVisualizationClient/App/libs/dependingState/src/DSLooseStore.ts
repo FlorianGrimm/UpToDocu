@@ -1,5 +1,5 @@
 import { DSValueStore } from "./DSValueStore";
-import { ConfigurationDSLooseValueStore, ConfigurationDSValueStore, IDSStateValue } from "./types";
+import { ConfigurationDSLooseValueStore, ConfigurationDSValueStore, IDSObjectStateValue } from "./types";
 
 export class DSLooseStore<
     Value,

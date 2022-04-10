@@ -5,16 +5,21 @@ import {
     dsLog, DSStateValue,
 } from 'dependingState';
 
-import AppUIView from './components/AppUI/AppUIView';
 import { AppStoreManager } from './services/AppStoreManager';
 import { setAppStoreManager } from './singletonAppStoreManager';
-import { PageAStore } from './components/PageA/PageAStore';
-import { AppUIValue } from './components/AppUI/AppUIValue';
-import { AppUIStore } from './components/AppUI/AppUIStore';
-import { PageBStore } from './components/PageB/PageBStore';
 import { createBrowserHistory, DSRouterStore, DSRouterValue, getDSRouterValueInitial } from 'dependingStateRouter';
-import { NavigatorStore } from './components/Navigator/NavigatorStore';
-import { NavigatorValue } from './components/Navigator/NavigatorValue';
+import { AppUIValue } from '~/components/AppUI/AppUIValue';
+import { AppUIStore } from '~/components/AppUI/AppUIStore';
+import { NavigatorStore } from '~/components/Navigator/NavigatorStore';
+import { NavigatorValue } from '~/components/Navigator/NavigatorValue';
+import { PageHomeStore } from '~/components/PageHome/PageHomeStore';
+import { PageGraphStore } from '~/components/PageGraph/PageGraphStore';
+import { GraphNavigatorStore } from '~/components/GraphNavigator/GraphNavigatorStore';
+import { GraphNodeStore } from '~/components/GraphNode/GraphNodeStore';
+import { GraphLinkStore } from '~/components/GraphLink/GraphLinkStore';
+
+import AppUIView from '~/components/AppUI/AppUIView';
+import { GraphNodeValue } from './components/GraphNode/GraphNodeValue';
 
 function main() {
      // initialize log
@@ -31,21 +36,30 @@ function main() {
     const routerStore = new DSRouterStore<DSRouterValue>(createBrowserHistory(), getDSRouterValueInitial());
     const navigatorStore = new NavigatorStore(new DSStateValue<NavigatorValue>({ page: "home", pathArguments: {} }));
     navigatorStore.setRouter(routerStore);
-    const pageAStore = new PageAStore();
-    const pageBStore = new PageBStore();
     const appUIStore = new AppUIStore(new AppUIValue());
+    const pageHomeStore = new PageHomeStore(undefined);
+    const pageGraphStore = new PageGraphStore(undefined);
+    const graphNavigatorStore = new GraphNavigatorStore(undefined);
+    const graphNodeStore = new GraphNodeStore();
+    const graphLinkStore = new GraphLinkStore();
 
     // create appStoreManager
     const appStoreManager = new AppStoreManager(
         routerStore,
         navigatorStore,
         appUIStore,
-        pageAStore,
-        pageBStore
+        pageHomeStore,
+        pageGraphStore,
+        graphNavigatorStore,
+        graphNodeStore,
+        graphLinkStore
     );
     setAppStoreManager(appStoreManager);
     dsLog.attach(appStoreManager);
     appStoreManager.initialize();
+    graphNodeStore.set(new GraphNodeValue("a",10,10));
+    graphNodeStore.set(new GraphNodeValue("b",100,10));
+    graphNodeStore.set(new GraphNodeValue("c",100,600));
 
     // start React
     const rootElement = React.createElement(

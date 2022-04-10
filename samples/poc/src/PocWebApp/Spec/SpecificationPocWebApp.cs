@@ -3,8 +3,8 @@
 using UpToDocu;
 
 namespace PocWebApp.Spec {
-    public class SpecificationPocWebApp : UpToDocu.UTDSpecification {
-        public static SpecificationPocWebApp Instance => UpToDocu.UTDSpecification.GetInstance(() => new SpecificationPocWebApp());
+    public class SpecificationPocWebApp : UpToDocu.UtdSpecification {
+        public static SpecificationPocWebApp Instance => UpToDocu.UtdSpecification.GetInstance(() => new SpecificationPocWebApp());
         /*
         public SpecificationPocWebApp(
                 string name = "",
@@ -28,11 +28,13 @@ namespace PocWebApp.Spec {
         public SpecificationPocWebApp() : base() {
         }
 
-        public UTDObject ToDoEntityController => this.Define(
+        public UtdSpecification SpecificationPocLibrary => Poc.Spec.SpecificationPocLibrary.Instance;
+
+        public UtdObject ToDoEntityController => this.Define(
             () => UTD.UTDClass<PocWebApp.Controller.ToDoEntityController>()
             );
 
-        public UTDObject ToDoEntityController_GetItem => this.Define(
+        public UtdObject ToDoEntityController_GetItem => this.Define(
             () => ToDoEntityController / UTD.UTDMethod(nameof(PocWebApp.Controller.ToDoEntityController.GetItem))
             );
     }

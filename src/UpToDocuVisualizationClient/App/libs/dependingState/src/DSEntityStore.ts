@@ -1,6 +1,6 @@
 import {
     ConfigurationDSEntityValueStore,
-    IDSStateValue
+    IDSObjectStateValue
 } from "./types";
 
 import { DSMapStore } from "./DSMapStore";
@@ -18,7 +18,7 @@ export class DSEntityStore<
         super(storeName, configuration);
     }
 
-    public set(value: Value): IDSStateValue<Value> {
+    public set(value: Value): IDSObjectStateValue<Value> {
         const getKey = (this.configuration as ConfigurationDSEntityValueStore<Key, Value>).getKey;
         const create = (this.configuration as ConfigurationDSEntityValueStore<Key, Value>).create;
         if (create !== undefined) {

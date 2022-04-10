@@ -10,7 +10,7 @@ using Poc.Entity;
 
 #nullable disable
 
-namespace PocWebApp6.Migrations {
+namespace PocWebApp.Migrations {
     [DbContext(typeof(PocContext))]
     partial class PocContextModelSnapshot : ModelSnapshot
     {

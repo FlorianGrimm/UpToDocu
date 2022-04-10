@@ -1,5 +1,5 @@
 ﻿namespace UpToDocu {
-    public class UTDActor : UTDObject {
+    public class UtdActor : UtdObject {
 
     }
 }

@@ -1,11 +1,11 @@
 ﻿using UpToDocu;
 namespace Poc.Consideration {
-    public class Step1 : UTDSpecification {
+    public class Step1 : UtdSpecification {
         public Step1() : base() {
         }
 
-        public UTDObject SqlServer => Define(() => "MS SQL");
+        public UtdObject SqlServer => Define(() => "MS SQL");
 
-        public UTDObject Database => Define(() => SqlServer / "TodoDB");
+        public UtdObject Database => Define(() => SqlServer / "TodoDB");
     }
 }

@@ -92,6 +92,47 @@ export interface IDSValueStoreBase {
     getNextStateVersion(stateVersion: number): number;
 }
 
+export interface IDSValueStoreEvent<
+    Key,
+    Value = any,
+    StoreName extends string = string
+    > extends IDSValueStoreBase {
+    storeName: StoreName;
+
+    /**
+    * should be called after a value change - or willbe called from DSPropertiesChanged.valueChangedIfNeeded().
+    * calls all callbacks - registed with listenDirtyValue - which can call setDirty if a relevant property was changed.
+    * @param msg the message is used for setDirty
+    * @param stateValue the entity that changed
+    * @param properties the properties that changed
+    */
+    emitValueChanged(msg: string, stateValue: IDSObjectStateValue<Value>, properties?: Set<keyof Value>): void;
+    
+    /**
+     * emit the event by enqueue it within the DSStoreManager that will be handled in process() (that should already running)
+     * @param eventType the event
+     * @param payload  the payload
+     */
+    emitEvent<
+        Event extends DSEvent<Payload, EventType, StoreName>,
+        Payload = Event['payload'],
+        EventType extends string = Event['event'],
+        >(
+            eventType: Event['event'],
+            payload: Event['payload'],
+    ): DSEventHandlerResult;
+
+    /**
+     * enqueue the uiStateValue to be updated (within DSStoreManager.process - that should already running)
+     * @param uiStateValue 
+     */
+    emitUIUpdate(uiStateValue: IDSUIStateValue<Value>): void;
+}
+
+export interface IDSStateCollectionValue<Value=any>{
+
+}
+
 export interface IDSValueStore<
     Key,
     Value = any,
@@ -110,7 +151,7 @@ export interface IDSValueStore<
     /**
      * gets all entities
      */
-    getEntities(): { key: Key, stateValue: IDSStateValue<Value> }[];
+    getEntities(): { key: Key, stateValue: IDSObjectStateValue<Value> }[];
 
     /**
      * emit the event by enqueue it within the DSStoreManager that will be handled in process() (that should already running)
@@ -153,7 +194,7 @@ export interface IDSValueStore<
      * @param stateValue the entity that changed
      * @param properties the properties that changed
      */
-    emitValueChanged(msg: string, stateValue: IDSStateValue<Value>, properties?: Set<keyof Value>): void;
+    emitValueChanged(msg: string, stateValue: IDSObjectStateValue<Value>, properties?: Set<keyof Value>): void;
 
     /**
      * register a callback that is called from emitDirtyValue.
@@ -278,7 +319,7 @@ export interface IDSObjectStore<
     Value = any,
     StoreName extends string = string
     > extends IDSValueStore<"stateValue", Value, StoreName> {
-    stateValue: IDSStateValue<Value>;
+    stateValue: IDSObjectStateValue<Value>;
 
     listenEventValue(msg: string, callback: DSEventEntityVSValueHandler<Value, StoreName>): DSUnlisten;
 }
@@ -298,12 +339,12 @@ export interface IDSArrayStore<
     Value = any,
     StoreName extends string = string
     > extends IDSValueStore<Key, Value, StoreName> {
-    attach(stateValue: IDSStateValue<Value>): void;
-    detach(stateValue: IDSStateValue<Value>): void;
+    attach(stateValue: IDSObjectStateValue<Value>): void;
+    detach(stateValue: IDSObjectStateValue<Value>): void;
     //listenEventValue(msg: string, callback: DSEventValueHandler<IDSStateValue<Value>, StoreName, Value>): DSUnlisten;
 }
 export type ConfigurationDSArrayValueStore<Value> = ConfigurationDSValueStore<Value> & {
-    create?: ((value: Value) => IDSStateValue<Value>);
+    create?: ((value: Value) => IDSObjectStateValue<Value>);
     // processDirtyEntity?: (dirtyEntity: IDSStateValue<Value>, properties?: Set<keyof Value>) => boolean;
 }
 
@@ -318,7 +359,7 @@ export interface IDSMapStore<
 export type ConfigurationDSMapValueStore<
     Value = any
     > = ConfigurationDSValueStore<Value> & {
-        create?: ((value: Value) => IDSStateValue<Value>);
+        create?: ((value: Value) => IDSObjectStateValue<Value>);
         // processDirtyEntity?: (dirtyEntity: IDSStateValue<Value>, properties?: Set<keyof Value>) => boolean;
     }
 
@@ -326,11 +367,11 @@ export type ConfigurationDSEntityValueStore<
     Key = string,
     Value = any,
     > = ConfigurationDSValueStore<Value> & {
-        create?: (value: Value) => IDSStateValue<Value>;
+        create?: (value: Value) => IDSObjectStateValue<Value>;
         getKey: (value: Value) => Key;
     }
 
-export interface IDSStateValue<Value> {
+export interface IDSObjectStateValue<Value> {
     store: IDSValueStoreWithValue<Value> | undefined;
     stateVersion: number;
     value: Value;
@@ -398,7 +439,7 @@ export type DSPayloadEntitySV<
     Value = any,
     Key extends (any | never) = never,
     Index extends (number | never) = never> = ({
-        entity: IDSStateValue<Value>;
+        entity: IDSObjectStateValue<Value>;
     }) & ([Key] extends [never]
         ? {
             key?: any;
@@ -434,7 +475,7 @@ export type DSEventEntitySVDetach<
 export type DSPayloadEntitySVValue<
     Value
     > = ({
-        entity: IDSStateValue<Value>;
+        entity: IDSObjectStateValue<Value>;
         properties?: Set<keyof Value> | undefined
     });
 
@@ -444,7 +485,7 @@ export type DSEventEntityVSValue<
     > = DSEvent<DSPayloadEntitySVValue<Value>, "value", StoreName>;
 
 export type DSEmitCleanedUpHandler<Value> = (store: Value) => void;
-export type DSEmitValueChangedHandler<Value> = (stateValue: IDSStateValue<Value>, properties?: Set<keyof Value>) => void;
+export type DSEmitValueChangedHandler<Value> = (stateValue: IDSObjectStateValue<Value>, properties?: Set<keyof Value>) => void;
 
 export type DSEventHandlerResult = (Promise<any | void> | void);
 export type DSManyEventHandlerResult = (Promise<any | void>[] | undefined);
@@ -475,7 +516,7 @@ export type DSUIProps<Value = any> = {
     getRenderProps: () => Value;
     wireStateVersion<Props extends DSUIProps<Value> = any, State extends DSUIViewStateBase = any>(
         component: React.Component<Props, State>,
-        stateVersionName?: string|undefined
+        stateVersionName?: string | undefined
     ): number;
     unwireStateVersion<Props extends DSUIProps<Value> = any, State extends DSUIViewStateBase = any>(
         component: React.Component<Props, State>
@@ -484,21 +525,6 @@ export type DSUIProps<Value = any> = {
 } & {
     key?: string | number;
 };
-
-/*
-type Xxx1<y extends string>={
-    [key in y]:number;
-}
-type Xxx<y extends string|undefined>={
-    [key in (y extends string ? y : "stateVersion")]:number;
-}
-const abc1:Xxx<"aaa">={
-    aaa:1
-};
-const abc2:Xxx<undefined>={
-    stateVersion:1
-};
-*/
 
 export type DSLogFlag = (
     "emitValueChanged"

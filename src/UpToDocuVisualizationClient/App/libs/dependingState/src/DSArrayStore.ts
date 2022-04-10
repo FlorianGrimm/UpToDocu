@@ -5,7 +5,7 @@ import {
     DSEventHandler,
     DSEventEntityVSValue,
     IDSArrayStore,
-    IDSStateValue,
+    IDSObjectStateValue,
     DSUnlisten
 } from "./types";
 
@@ -16,7 +16,7 @@ export class DSArrayStore<
     Value = any,
     StoreName extends string = string
     > extends DSValueStore<number, Value, StoreName> implements IDSArrayStore<number, Value, StoreName>    {
-    entities: IDSStateValue<Value>[];
+    entities: IDSObjectStateValue<Value>[];
     // dirtyEntities: { stateValue: IDSStateValue<Value>, properties?: Set<keyof Value> }[];
     // isProcessDirtyEntityConfigured: boolean;
 
@@ -30,11 +30,11 @@ export class DSArrayStore<
         // this.isProcessDirtyEntityConfigured = false;
     }
 
-    public getEntities(): { key: number; stateValue: IDSStateValue<Value>; }[] {
+    public getEntities(): { key: number; stateValue: IDSObjectStateValue<Value>; }[] {
         return this.entities.map((e, index) => ({ key: index, stateValue: e }));
     }
 
-    public create(value: Value): IDSStateValue<Value> {
+    public create(value: Value): IDSObjectStateValue<Value> {
         const create = (this.configuration as ConfigurationDSArrayValueStore<Value>).create;
         if (create !== undefined) {
             const result = create(value);
@@ -64,7 +64,7 @@ export class DSArrayStore<
     //     return false;
     // }
 
-    public attach(stateValue: IDSStateValue<Value>): void {
+    public attach(stateValue: IDSObjectStateValue<Value>): void {
         if (stateValue.setStore(this)) {
             this.entities.push(stateValue);
             const index = this.entities.length - 1;
@@ -72,7 +72,7 @@ export class DSArrayStore<
         }
     }
 
-    public detach(stateValue: IDSStateValue<Value>): void {
+    public detach(stateValue: IDSObjectStateValue<Value>): void {
         const index = this.entities.findIndex((item) => item === stateValue);
         if (index < 0) {
             // do nothing

@@ -1,11 +1,16 @@
 import {
+    bindUIComponent,
     DSUIProps,
     DSUIViewStateBase
 } from "dependingState";
 
 import React from "react";
+import NavigatorView from "~/components/Navigator/NavigatorView";
+import { getAppStoreManager } from "~/singletonAppStoreManager";
 
 import type { AppUIValue } from "./AppUIValue";
+
+import "./AppUIView.css";
 
 type AppViewProps = {
 } & DSUIProps<AppUIValue>;
@@ -23,15 +28,7 @@ export function appUIView(props:AppViewProps): React.CElement<AppViewProps, AppU
 export default class AppUIView extends React.Component<AppViewProps, AppViewState>{
     constructor(props: AppViewProps) {
         super(props);
-        this.state = {
-            stateVersion: this.props.getStateVersion()
-        };
-        this.props.wireStateVersion(this);
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    componentWillUnmount() {
-        this.props.unwireStateVersion(this);
+        this.state = bindUIComponent(this, props).bindHandleAll().setComponentWillUnmount().getState();
     }
 
     handleClick() {
@@ -39,16 +36,9 @@ export default class AppUIView extends React.Component<AppViewProps, AppViewStat
 
     render(): React.ReactNode {
         const renderProps = this.props.getRenderProps();
-
-        return (<div>
-            App
-            <div>
-                AppUI - StateVersion: {this.props.getStateVersion()} - dt:{(new Date()).toISOString()}
-            </div>
-            <div>
-                <button onClick={this.handleClick}>doSomething</button>
-            </div>
-            
-        </div>);
+        const navigatorSV = getAppStoreManager().navigatorStore.stateValue;
+        return (<>
+            {navigatorSV.value && React.createElement(NavigatorView, navigatorSV.getViewProps())}
+        </>);
     }
 }

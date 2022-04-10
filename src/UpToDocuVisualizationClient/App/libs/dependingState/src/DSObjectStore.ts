@@ -4,7 +4,7 @@ import {
     DSEventEntityVSValueHandler,
     DSUnlisten,
     IDSObjectStore,
-    IDSStateValue,
+    IDSObjectStateValue,
     IDSValueStore
 } from "./types";
 
@@ -15,10 +15,10 @@ export class DSObjectStore<
     StoreName extends string = string
     > extends DSValueStore<"stateValue", Value, StoreName>
     implements IDSObjectStore<Value, StoreName>    {
-    readonly stateValue: IDSStateValue<Value>
+    readonly stateValue: IDSObjectStateValue<Value>
     constructor(
         storeName: StoreName,
-        stateValue: IDSStateValue<Value>,
+        stateValue: IDSObjectStateValue<Value>,
         configuration?: ConfigurationDSValueStore<Value>
     ) {
         super(storeName, configuration);
@@ -26,7 +26,7 @@ export class DSObjectStore<
         stateValue.setStore(this);
     }
 
-    public getEntities(): { key: "stateValue"; stateValue: IDSStateValue<Value>; }[] {
+    public getEntities(): { key: "stateValue"; stateValue: IDSObjectStateValue<Value>; }[] {
         return [{ key: "stateValue", stateValue: this.stateValue }];
     }
 

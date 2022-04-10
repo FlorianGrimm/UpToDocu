@@ -1,8 +1,8 @@
 import type React from 'react';
-import { dsLog } from '.';
+import { dsLog } from './DSLog';
 import type {
     IDSUIStateValue,
-    IDSStateValue,
+    IDSObjectStateValue,
     DSUIProps,
     DSComponentStateVersionName
 } from './types';
@@ -11,11 +11,11 @@ import type {
 export class DSUIStateValue<Value = any> implements IDSUIStateValue<Value>{
     _ViewProps: undefined | DSUIProps<Value>;
     arrComponentStateVersionName: undefined | (DSComponentStateVersionName) | (DSComponentStateVersionName[]);
-    stateValue: IDSStateValue<Value>;
+    stateValue: IDSObjectStateValue<Value>;
     viewStateVersion: number;
     triggerScheduled: boolean;
 
-    constructor(stateValue: IDSStateValue<Value>) {
+    constructor(stateValue: IDSObjectStateValue<Value>) {
         this.arrComponentStateVersionName = undefined;
         this.stateValue = stateValue;
         this.viewStateVersion = 0;
@@ -121,39 +121,7 @@ export class DSUIStateValue<Value = any> implements IDSUIStateValue<Value>{
         // }
     }
 
-    /*
-        triggerUIUpdate(stateVersion: number): void {
-            this.triggerScheduled = false;
-            // const stateVersion = this.stateValue.stateVersion;
-            // if (this.component === undefined) {
-            //     //
-            // } else {
-            //     if (stateVersion === this.viewStateVersion) {
-            //         //
-            //         dsLog.info(`DSUIStateValue skip update same stateVersion: ${stateVersion}`)
-
-            //     } else {
-            this.viewStateVersion = stateVersion;
-            if (this.componentStateVersionName === undefined) {
-                //
-            } else if (Array.isArray(this.componentStateVersionName)) {
-                for (const component of this.componentStateVersionName) {
-                    component.setState({ stateVersion: stateVersion });
-                    if (dsLog.enabled) {
-                        dsLog.infoACME("DS", "DSUIStateValue", "triggerUIUpdate", dsLog.convertArg(component));
-                    }
-                }
-            } else {
-                this.componentStateVersionName.setState({ stateVersion: stateVersion });
-
-                if (dsLog.enabled) {
-                    dsLog.infoACME("DS", "DSUIStateValue", "triggerUIUpdate", dsLog.convertArg(this.componentStateVersionName));
-                }
-            }
-            //     }
-            // }
-        }
-    */
+  
     toString(): string {
         if (typeof (this.stateValue.value as any).toString === "function") {
             return (this.stateValue.value as any).toString();

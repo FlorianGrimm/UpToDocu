@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using UpToDocu;
+
 namespace Poc.Repository {
     public class TodoItemBehaviour { 
     }
@@ -23,33 +25,36 @@ namespace Poc.Repository {
             this._SerialVersionConverter = new SerialVersionConverter();
         }
 
-        [return: NotNullIfNotNull("e")]
-        private TodoItem? ConvertFromEntity(TodoEntity? e) {
-            if (e is null) {
-                return null;
-            } else {
-                return new TodoItem() {
-                    Id = e.Id,
-                    Title = e.Title,
-                    Done = e.Done,
-                    CreatedAt = e.CreatedAt,
-                    ModifiedAt = e.ModifiedAt,
-                    SerialVersion = this._SerialVersionConverter.ConvertFromEntity(e.SerialVersion)
-                };
-            }
+        private TodoItem ConvertFromEntity(TodoEntity e) {
+            return new TodoItem() {
+                Id = e.Id,
+                Title = e.Title,
+                Done = e.Done,
+                CreatedAt = e.CreatedAt,
+                ModifiedAt = e.ModifiedAt,
+                SerialVersion = this._SerialVersionConverter.ConvertFromEntity(e.SerialVersion)
+            };
         }
 
-        public async Task<List<TodoItem>> GetList() {
+        public async Task<UtdValue<List<TodoItem>>> GetList() {
             var resultEntity = await this.Repository.Context.Todo.ToListAsync();
-            return resultEntity.Select(e => this.ConvertFromEntity(e)).ToList();
+            return resultEntity
+                .Select(e => this.ConvertFromEntity(e))
+                .ToList()
+                .AsUtdValue(null!);
         }
 
-        public async Task<TodoItem?> GetItem(Guid id) {
+        public async Task<UtdValue<TodoItem>> GetItem(Guid id) {
             var resultEntity = await this.Repository.Context.Todo.FindAsync(id);
-            return this.ConvertFromEntity(resultEntity);
+            return resultEntity
+                .AsUtdValueNotNull(null!)
+                .ThenValue(
+                    ifValue: (resultEntity, _) => this.ConvertFromEntity(resultEntity).AsUtdValue(null!)
+                    )
+                ;
         }
 
-        public async Task<TodoItem?> Insert(TodoItemCreate todoCreate) {
+        public async Task<UtdValue<TodoItem>> Insert(TodoItemCreate todoCreate) {
             var now = System.DateTimeOffset.Now;
             var context = this.Repository.Context;
             var id = todoCreate.Id.GetValueOrDefault(Guid.Empty);
@@ -73,7 +78,7 @@ namespace Poc.Repository {
             return this.ConvertFromEntity(todoEntity);
         }
 
-        public async Task<TodoItem?> Update(TodoItemUpdate todoEntity) {
+        public async Task<UtdValue<TodoItem>> Update(TodoItemUpdate todoEntity) {
             var context = this.Repository.Context;
             var id = todoEntity.Id;
             var toDoEntityCurrent = await context.Todo.FindAsync(id);
@@ -104,7 +109,7 @@ namespace Poc.Repository {
              */
         }
 
-        public async Task<bool> Delete(TodoItemDelete todoItemDelete) {
+        public async Task<UtdValue< bool>> Delete(TodoItemDelete todoItemDelete) {
             var context = this.Repository.Context;
 
             var todoEntity = await context.Todo.FindAsync(todoItemDelete.Id);

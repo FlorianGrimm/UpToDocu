@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace UpToDocu {
-    public class UTDSpecification : UTDObject {
-        static UTDSpecification() {
-            _Specifications = new Dictionary<string, UTDSpecification>(StringComparer.Ordinal);
+    public class UtdSpecification : UtdObject {
+        static UtdSpecification() {
+            _Specifications = new Dictionary<string, UtdSpecification>(StringComparer.Ordinal);
         }
 
-        private static Dictionary<string, UTDSpecification> _Specifications;
+        private static Dictionary<string, UtdSpecification> _Specifications;
         public static T GetInstance<T>(Func<T> creation)
-            where T : UTDSpecification {
+            where T : UtdSpecification {
             var key = typeof(T).FullName!;
             if (_Specifications.TryGetValue(key, out var existing)) {
                 return (T)existing;
@@ -22,16 +22,16 @@ namespace UpToDocu {
             }
         }
 
-        public Dictionary<string, UTDObject> PropsByCallerMemberName { get; }
+        public Dictionary<string, UtdObject> PropsByCallerMemberName { get; }
 
-        public UTDSpecification(
+        public UtdSpecification(
                 string name = "",
-                UTDObject? kind = default,
+                UtdObject? kind = default,
                 object? value = null,
                 [CallerMemberName] string callerMemberName = "",
                 [CallerFilePath] string callerFilePath = "",
                 [CallerLineNumber] int callerLineNumber = 0,
-                params UTDObject[] props
+                params UtdObject[] props
             ) : base(
                 name: name,
                 kind: kind,
@@ -42,10 +42,12 @@ namespace UpToDocu {
                 props: props
             ) {
             _Specifications[this.GetType().FullName!] = this;
-            this.PropsByCallerMemberName = new Dictionary<string, UTDObject>();
+            this.PropsByCallerMemberName = new Dictionary<string, UtdObject>();
             if (string.IsNullOrEmpty(this.Name)) { this.Name = this.GetType().FullName!; }
             this.Kind = UpToDocu.Spec.SpecificationCommon.Instance;
         }
+
+        public UpToDocu.Spec.SpecificationCommon SpecificationCommon = UpToDocu.Spec.SpecificationCommon.Instance;
 
         /*
         public UTDObject Register(
@@ -56,26 +58,59 @@ namespace UpToDocu {
         }
         */
 
-        public UTDObject Define(
-            Func<UTDObject> fnValue,
+        public T Define<T>(
+            Func<T> fnValue,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0
-            ) {
+            )
+            where T : UtdObject {
             if (this.PropsByCallerMemberName.TryGetValue(callerMemberName, out var value)) {
-                return value;
+                return (T)value;
             } else {
-                var reference = new UTDObject(name: "", kind: "reference");
+                var reference = new UtdObject(name: "", kind: "reference");
                 this.PropsByCallerMemberName.Add(callerMemberName, reference);
                 value = fnValue();
                 this.Props.Add(value);
                 this.PropsByCallerMemberName[callerMemberName] = value;
                 reference.Value = value;
+                reference.ReferencedValue = value;
                 if (reference.Props.Count > 0) {
                     value.AddRange(reference);
                     reference.Props.Clear();
                 }
-                return value;
+                return (T)value;
+            }
+            //T? value = default;
+            //return this.Define<T>(ref value, fnValue, callerMemberName, callerFilePath, callerLineNumber);
+        }
+
+        public T Define<T>(
+            ref T? valueT,
+            Func<T> fnValue,
+            [CallerMemberName] string callerMemberName = "",
+            [CallerFilePath] string callerFilePath = "",
+            [CallerLineNumber] int callerLineNumber = 0
+        )
+        where T : UtdObject {
+            if (valueT is not null) {
+                return valueT;
+            }
+            if (this.PropsByCallerMemberName.TryGetValue(callerMemberName, out var value)) {
+                return (T)value;
+            } else {
+                var reference = new UtdObject(name: "", kind: "reference");
+                this.PropsByCallerMemberName.Add(callerMemberName, reference);
+                value = valueT = fnValue();
+                this.Props.Add(value);
+                this.PropsByCallerMemberName[callerMemberName] = value;
+                reference.Value = value;
+                reference.ReferencedValue = value;
+                if (reference.Props.Count > 0) {
+                    value.AddRange(reference);
+                    reference.Props.Clear();
+                }
+                return (T)value;
             }
         }
 
@@ -86,12 +121,12 @@ namespace UpToDocu {
                 }
             }
             foreach (var property in this.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)) {
-                if (typeof(UpToDocu.UTDObject).Equals(property.DeclaringType)) {
+                if (typeof(UpToDocu.UtdObject).Equals(property.DeclaringType)) {
                     continue;
                 }
                 if (property.CanRead) {
-                    if (property.PropertyType.IsAssignableTo(typeof(UTDObject))) {
-                        if (property.GetValue(this) is UTDObject utdObject) {
+                    if (property.PropertyType.IsAssignableTo(typeof(UtdObject))) {
+                        if (property.GetValue(this) is UtdObject utdObject) {
                             if (string.IsNullOrEmpty(utdObject.Name)) {
                                 utdObject.Name = property.Name;
                             }
@@ -103,13 +138,13 @@ namespace UpToDocu {
                 }
             }
             foreach (var method in this.GetType().GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)) {
-                if (typeof(UpToDocu.UTDObject).Equals(method.DeclaringType)) {
+                if (typeof(UpToDocu.UtdObject).Equals(method.DeclaringType)) {
                     continue;
                 }
-                if (typeof(UpToDocu.UTDObject).IsAssignableFrom(method.ReturnType)) {
+                if (typeof(UpToDocu.UtdObject).IsAssignableFrom(method.ReturnType)) {
                     if (method.GetParameters().Length == 0) {
                         var methodResult = method.Invoke(obj: this, parameters: Array.Empty<object>());
-                        if (methodResult is UTDObject utdObject) {
+                        if (methodResult is UtdObject utdObject) {
                             if (string.IsNullOrEmpty(utdObject.Name)) {
                                 utdObject.Name = method.Name;
                             }

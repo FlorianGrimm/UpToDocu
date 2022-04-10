@@ -1,5 +1,5 @@
 ﻿namespace UpToDocu {
-    public class UTDDescription : UTDObject {
+    public class UtdDescription : UtdObject {
 
     }
 }

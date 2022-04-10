@@ -11,7 +11,7 @@ using Poc.Entity;
 
 #nullable disable
 
-namespace PocWebApp6.Migrations {
+namespace PocWebApp.Migrations {
     [DbContext(typeof(PocContext))]
     [Migration("20220326010551_v1")]
     partial class v1

@@ -1,13 +1,13 @@
 import {
-    IDSStateValue,
+    IDSObjectStateValue,
     DSUIProps,
     IDSValueStoreWithValue
 } from "./types";
 import { DSUIStateValue } from "./DSUIStateValue";
 import { dsLog } from "./DSLog";
-import { DSEventEntityVSValue } from ".";
+import { DSEventEntityVSValue } from "./types";
 
-export class DSStateValue<Value> implements IDSStateValue<Value>{
+export class DSStateValue<Value> implements IDSObjectStateValue<Value>{
     private _value: Value;
     private _stateVersion: number;
 

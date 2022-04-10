@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace UpToDocu {
     public static class UTD {
-        public static UTDObject UTDObject(
+        public static UtdObject UTDObject(
             string name = "",
-            UTDObject? kind = default,
+            UtdObject? kind = default,
             object? value = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0
             ) {
-            return new UTDObject(
+            return new UtdObject(
                 name: name,
                 kind: kind,
                 value: value,
@@ -23,7 +23,7 @@ namespace UpToDocu {
                 callerLineNumber: callerLineNumber);
         }
 
-        public static UTDObject UTDClass<T>(
+        public static UtdObject UTDClass<T>(
             string? name = null,
             object? value = null,
             [CallerMemberName] string callerMemberName = "",
@@ -31,7 +31,7 @@ namespace UpToDocu {
             [CallerLineNumber] int callerLineNumber = 0
             ) {
             //UTDMethod
-            return new UTDObject(
+            return new UtdObject(
                 name: name ?? typeof(T).FullName ?? string.Empty,
                 kind: global::UpToDocu.Spec.SpecificationCommon.Instance.Class,
                 value: value ?? typeof(T),
@@ -39,14 +39,14 @@ namespace UpToDocu {
                 callerFilePath: callerFilePath,
                 callerLineNumber: callerLineNumber);
         }
-        public static UTDObject UTDMethod(
+        public static UtdObject UTDMethod(
             string name = "",
             object? value = null,
             [CallerMemberName] string callerMemberName = "",
             [CallerFilePath] string callerFilePath = "",
             [CallerLineNumber] int callerLineNumber = 0
             ) {
-            return new UTDObject(
+            return new UtdObject(
                 name: name,
                 kind: global::UpToDocu.Spec.SpecificationCommon.Instance.Method,
                 value: value,
@@ -57,7 +57,7 @@ namespace UpToDocu {
 
 
         public static bool Condition<T>(
-            UTDBoundObject utd,
+            UtdBound  utd,
             T value,
             Func<T, bool> condition
             ) {
@@ -66,7 +66,7 @@ namespace UpToDocu {
 
 
         public static R Conditional<T, R>(
-            UTDBoundObject utd,
+            UtdBound  utd,
             T value,
             Func<T, bool> condition,
             Func<T, R> ifTrue,
@@ -80,7 +80,7 @@ namespace UpToDocu {
         }
 
         public static async Task<R> ConditionalAsync<T, R>(
-            UTDBoundObject utd,
+            UtdBound  utd,
             T value,
             Func<T, bool> condition,
             Func<T, Task<R>> ifTrue,
@@ -96,7 +96,7 @@ namespace UpToDocu {
         }
 
         public static async Task<R> ConditionalAsync<T, R>(
-            UTDBoundObject utd,
+            UtdBound  utd,
             T value,
             Func<T, bool> condition,
             Func<T, Task<R>> ifTrue,

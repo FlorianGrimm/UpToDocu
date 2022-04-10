@@ -1,7 +1,7 @@
 import { dsLog } from ".";
 import {
     IDSPropertiesChanged,
-    IDSStateValue
+    IDSObjectStateValue
 } from "./types";
 
 const cache: IDSPropertiesChanged<any>[] = [];
@@ -12,7 +12,7 @@ export function getPropertiesSet<Value>(keys:(keyof Value)[]):Set<keyof Value>{
 
 export function getPropertiesChanged<
         Value
-    >(that: IDSStateValue<Value>): IDSPropertiesChanged<Value> {
+    >(that: IDSObjectStateValue<Value>): IDSPropertiesChanged<Value> {
     const result = cache.pop() as (DSPropertiesChanged<Value> | undefined);
     if (result === undefined) {
         return new DSPropertiesChanged<Value>(that);
@@ -28,7 +28,7 @@ export class DSPropertiesChanged<
     properties: Set<keyof Value>;
 
     constructor(
-        public instance: IDSStateValue<Value>
+        public instance: IDSObjectStateValue<Value>
     ) {
         this.properties = new Set();
     }

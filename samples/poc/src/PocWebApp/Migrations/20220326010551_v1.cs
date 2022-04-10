@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PocWebApp6.Migrations
+namespace PocWebApp.Migrations
 {
     public partial class v1 : Migration
     {

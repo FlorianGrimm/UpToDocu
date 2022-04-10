@@ -1,4 +1,48 @@
-export * from './types';
+export type {
+    ArrayElement,
+    IDSStoreManager,
+    IDSStoreManagerInternal,
+    IDSStoreBuilder,
+    IDSStoreAction,
+    IDSValueStoreBase,
+    IDSValueStoreEvent,
+    IDSStateCollectionValue,
+    IDSValueStore,
+    IDSValueStoreInternals,
+    IDSAnyValueStore,
+    IDSAnyValueStoreInternal,
+    IDSObjectStore,
+    ConfigurationDSValueStore,
+    ConfigurationDSLooseValueStore,
+    IDSArrayStore,
+    ConfigurationDSArrayValueStore,
+    IDSMapStore,
+    ConfigurationDSMapValueStore,
+    ConfigurationDSEntityValueStore,
+    IDSValueStoreWithValue,
+    IDSPropertiesChanged,
+    IDSUIStateValue,
+    DSEventName,
+    DSEvent,
+    DSPayloadEntitySV,
+    DSEventEntityVSAttach,
+    DSEventEntitySVDetach,
+    DSPayloadEntitySVValue,
+    DSEventEntityVSValue,
+    DSEmitCleanedUpHandler,
+    DSEmitValueChangedHandler,
+    DSEventHandlerResult,
+    DSManyEventHandlerResult,
+    DSEventHandler,
+    DSEventEntityVSValueHandler,
+    DSUnlisten,
+    DSUIViewState,
+    DSUIViewStateBase,
+    DSComponentStateVersionName,
+    DSUIProps,
+    DSLogFlag
+} from './types';
+
 //     DSPayloadEntitySV as DSPayloadEntity,
 //     DSEventEntityVSAttach as DSEventAttach,
 //     DSEventEntitySVDetach as DSEventDetach,
@@ -23,4 +67,5 @@ export * from './DSUIBinder';
 export * from './DSValueChanged'
 export * from './DSValueStore';
 export * from './PromiseHelper';
+export * from "./DSCollectionStoreStateValue";
 export * from "./DSStoreManager";

@@ -1,15 +1,15 @@
 ﻿using System.Runtime.CompilerServices;
 
 namespace UpToDocu {
-    public class UTDEnv : UTDObject {
-        public UTDEnv(
+    public class UtdEnv : UtdObject {
+        public UtdEnv(
                 string name = "",
-                UTDObject? kind = default,
+                UtdObject? kind = default,
                 object? value = null,
                 [CallerMemberName] string callerMemberName = "",
                 [CallerFilePath] string callerFilePath = "",
                 [CallerLineNumber] int callerLineNumber = 0,
-                params UTDObject[] props
+                params UtdObject[] props
             ) : base(
                 name: name,
                 kind:kind,

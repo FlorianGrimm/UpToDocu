@@ -13,7 +13,7 @@ import type {
 } from './types';
 
 import {
-    IDSStateValue,
+    IDSObjectStateValue,
     DSObjectStore,
     ConfigurationDSValueStore,
     getPropertiesChanged,
@@ -84,7 +84,7 @@ export class DSRouterStore<
 
     constructor(
         history: History<LocationState>,
-        stateValue: IDSStateValue<Value>,
+        stateValue: IDSObjectStateValue<Value>,
         configuration?: ConfigurationDSValueStore<Value>
     ) {
         super("router", stateValue, configuration);

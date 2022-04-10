@@ -1,0 +1,27 @@
+.PageGraphView {
+    display: grid;
+    grid-template-columns: 200px calc(100vw - 220px);
+    grid-template-rows: 40px calc(100vh - 100px) 40px;
+    grid-template-areas: 
+        "header header"
+        "nav main"
+        "footer footer";
+    align-content: stretch; 
+    justify-items: stretch;
+}
+.PageGraphView > header {
+    grid-area: header;
+    background-color: #ccc;
+}
+.PageGraphView > main {
+    grid-area: main;
+    background-color: tomato;
+}
+.PageGraphView > nav {
+    grid-area: nav;
+    background-color: beige;
+}
+.PageGraphView > footer {
+    grid-area: footer;
+    background-color: #ccc;
+}
